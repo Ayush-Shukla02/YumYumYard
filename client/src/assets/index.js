@@ -1,4 +1,5 @@
 export { default as LoginBg } from "./img/loginBg.jpg";
+export { default as LoginBg2 } from "./img/loginBg2.jpg";
 export { default as Logo } from "./img/logo.png";
 export { default as Avatar } from "./img/avatar.png";
 // export { default as Mango } from "./img/mango.png";
