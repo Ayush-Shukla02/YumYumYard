@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { LoginBg, LoginBg2, Logo } from "../assets";
+import { LoginBg, Logo } from "../assets";
 import { LoginInput } from "../components";
 import { FaEnvelope, FaLock, FcGoogle } from "../assets/icons";
 import { motion } from "framer-motion";
@@ -99,7 +99,7 @@ const Login = () => {
 		<div className="w-screen h-screen relative overflow-hidden flex">
 			{/* Background Image */}
 			<img
-				src={LoginBg2}
+				src={LoginBg}
 				alt="Background"
 				className="w-full h-full object-cover absolute top-0 left-0"
 			/>
