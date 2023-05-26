@@ -4,8 +4,15 @@ import { LoginInput } from "../components";
 import { FaEnvelope, FaLock, FcGoogle } from "../assets/icons";
 import { motion } from "framer-motion";
 import { buttonClick } from "../animations";
+import { useNavigate } from "react-router-dom";
 
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {
+	getAuth,
+	signInWithPopup,
+	GoogleAuthProvider,
+	createUserWithEmailAndPassword,
+	signInWithEmailAndPassword,
+} from "firebase/auth";
 import { app } from "../config/firebase.config";
 import { validateUserJWTToken } from "../api";
 
@@ -18,6 +25,8 @@ const Login = () => {
 	const firebaseauth = getAuth(app);
 	const provider = new GoogleAuthProvider();
 
+	const navigate = useNavigate();
+
 	const loginWithGoogle = async () => {
 		await signInWithPopup(firebaseauth, provider).then((userCred) => {
 			firebaseauth.onAuthStateChanged((cred) => {
@@ -26,10 +35,64 @@ const Login = () => {
 						validateUserJWTToken(token).then((data) => {
 							console.log(data);
 						});
+						navigate("/", { replace: true });
 					});
 				}
 			});
 		});
+	};
+
+	const signUpWithEmailPass = async () => {
+		if (userEmail === "" || password === "" || confirmPassword === "") {
+			alert("Please fill all the fields");
+		} else if (password !== confirmPassword) {
+			alert("Passwords don't match");
+		} else {
+			setUserEmail("");
+			setPassword("");
+			setConfirmPassword("");
+			await createUserWithEmailAndPassword(
+				firebaseauth,
+				userEmail,
+				password
+			).then((userCred) => {
+				firebaseauth.onAuthStateChanged((cred) => {
+					if (cred) {
+						cred.getIdToken().then((token) => {
+							validateUserJWTToken(token).then((data) => {
+								console.log(data);
+							});
+							navigate("/", { replace: true });
+						});
+					}
+				});
+			});
+		}
+	};
+
+	const signInWIthEmailPass = async () => {
+		if (userEmail === "" || password === "") {
+			alert("Please fill all the fields");
+		} else {
+			setUserEmail("");
+			setPassword("");
+			await signInWithEmailAndPassword(
+				firebaseauth,
+				userEmail,
+				password
+			).then((userCred) => {
+				firebaseauth.onAuthStateChanged((cred) => {
+					if (cred) {
+						cred.getIdToken().then((token) => {
+							validateUserJWTToken(token).then((data) => {
+								console.log(data);
+							});
+							navigate("/", { replace: true });
+						});
+					}
+				});
+			});
+		}
 	};
 
 	return (
@@ -118,6 +181,7 @@ const Login = () => {
 						<motion.button
 							{...buttonClick}
 							className="w-[50%] px-4 py-2 rounded-md bg-red-400 cursor-pointer text-white text-white text-xl capitalize hover:bg-red-500 transition-all duration-156"
+							onClick={signUpWithEmailPass}
 						>
 							Sign Up
 						</motion.button>
@@ -125,6 +189,7 @@ const Login = () => {
 						<motion.button
 							{...buttonClick}
 							className="w-[50%] px-4 py-2 rounded-md bg-red-400 cursor-pointer text-white text-white text-xl capitalize hover:bg-red-500 transition-all duration-156"
+							onClick={signInWIthEmailPass}
 						>
 							Sign In
 						</motion.button>
