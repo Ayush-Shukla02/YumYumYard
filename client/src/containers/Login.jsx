@@ -17,6 +17,7 @@ import {
 import { app } from "../config/firebase.config";
 import { validateUserJWTToken } from "../api";
 import { setUserDetails } from "../context/actions/userActoins";
+import { alertInfo, alertWarning } from "../context/actions/alertActions";
 
 const Login = () => {
 	const [userEmail, setUserEmail] = useState("");
@@ -31,6 +32,7 @@ const Login = () => {
 	const dispatch = useDispatch();
 
 	const user = useSelector((state) => state.user);
+	const alert = useSelector((state) => state.alert);
 
 	useEffect(() => {
 		if (user) {
@@ -55,9 +57,9 @@ const Login = () => {
 
 	const signUpWithEmailPass = async () => {
 		if (userEmail === "" || password === "" || confirmPassword === "") {
-			alert("Please fill all the fields");
+			dispatch(alertInfo("Required fields should not be empty."));
 		} else if (password !== confirmPassword) {
-			alert("Passwords don't match");
+			dispatch(alertWarning("Passwords do not match."));
 		} else {
 			setUserEmail("");
 			setPassword("");
@@ -83,7 +85,7 @@ const Login = () => {
 
 	const signInWIthEmailPass = async () => {
 		if (userEmail === "" || password === "") {
-			alert("Please fill all the fields");
+			dispatch(alertInfo("Required fields should not be empty."));
 		} else {
 			setUserEmail("");
 			setPassword("");
