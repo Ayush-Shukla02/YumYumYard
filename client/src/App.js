@@ -5,7 +5,7 @@ import { getAuth } from "firebase/auth";
 import { app } from "./config/firebase.config";
 import { useDispatch, useSelector } from "react-redux";
 import { validateUserJWTToken } from "./api";
-import { setUserDetails } from "./context/actions/userActoins";
+import { setUserDetails } from "./context/actions/userActions";
 import { fadeInOut } from "./animations";
 import { motion } from "framer-motion";
 import { Alert, MainLoader } from "./components";

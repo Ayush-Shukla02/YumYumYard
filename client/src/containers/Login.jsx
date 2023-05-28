@@ -16,7 +16,7 @@ import {
 } from "firebase/auth";
 import { app } from "../config/firebase.config";
 import { validateUserJWTToken } from "../api";
-import { setUserDetails } from "../context/actions/userActoins";
+import { setUserDetails } from "../context/actions/userActions";
 import { alertInfo, alertWarning } from "../context/actions/alertActions";
 
 const Login = () => {
