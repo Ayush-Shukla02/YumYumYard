@@ -193,7 +193,7 @@ const Login = () => {
 					{isSignUp ? (
 						<motion.button
 							{...buttonClick}
-							className="w-[50%] px-4 py-2 rounded-md bg-red-400 cursor-pointer text-white text-white text-xl capitalize hover:bg-red-500 transition-all duration-156"
+							className="w-[50%] px-4 py-2 rounded-md bg-red-400 cursor-pointer text-white text-xl capitalize hover:bg-red-500 transition-all duration-156"
 							onClick={signUpWithEmailPass}
 						>
 							Sign Up
@@ -201,7 +201,7 @@ const Login = () => {
 					) : (
 						<motion.button
 							{...buttonClick}
-							className="w-[50%] px-4 py-2 rounded-md bg-red-400 cursor-pointer text-white text-white text-xl capitalize hover:bg-red-500 transition-all duration-156"
+							className="w-[50%] px-4 py-2 rounded-md bg-red-400 cursor-pointer text-white text-xl capitalize hover:bg-red-500 transition-all duration-156"
 							onClick={signInWIthEmailPass}
 						>
 							Sign In
