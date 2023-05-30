@@ -99,7 +99,11 @@ const Header = () => {
 							<div className="w-12 h-12 rounded-full shadow-md overflow-hidden cursor-pointer flex items-center justify-center">
 								<motion.image
 									className="w-full h-full object-cover"
-									src={user?.picture ? user?.picture : Avatar}
+									src={
+										user?.data.picture
+											? user?.data.picture
+											: Avatar
+									}
 									whileHover={{ scale: 1.15 }}
 									referrerPolicy="no-referrer"
 								/>

@@ -31,9 +31,9 @@ const DBLeftSection = () => {
 							? `${isActiveStyles} px-4 py-2 border-l-8 border-red-500`
 							: isNotActiveStyles
 					}
-					to={"/dashboard/menu"}
+					to={"/dashboard/orders"}
 				>
-					Menu
+					Orders
 				</NavLink>
 				<NavLink
 					className={({ isActive }) =>
@@ -41,9 +41,9 @@ const DBLeftSection = () => {
 							? `${isActiveStyles} px-4 py-2 border-l-8 border-red-500`
 							: isNotActiveStyles
 					}
-					to={"/dashboard/services"}
+					to={"/dashboard/items"}
 				>
-					Services
+					Items
 				</NavLink>
 				<NavLink
 					className={({ isActive }) =>
@@ -51,9 +51,19 @@ const DBLeftSection = () => {
 							? `${isActiveStyles} px-4 py-2 border-l-8 border-red-500`
 							: isNotActiveStyles
 					}
-					to={"/dashboard/about"}
+					to={"/dashboard/newItem"}
 				>
-					About Us
+					Add New Item
+				</NavLink>
+				<NavLink
+					className={({ isActive }) =>
+						isActive
+							? `${isActiveStyles} px-4 py-2 border-l-8 border-red-500`
+							: isNotActiveStyles
+					}
+					to={"/dashboard/users"}
+				>
+					Users
 				</NavLink>
 			</ul>
 			<div className="w-full items-center justify-center flex h-225 mt-auto px-2">
