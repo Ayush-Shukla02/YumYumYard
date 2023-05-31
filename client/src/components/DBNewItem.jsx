@@ -14,7 +14,8 @@ import { alertDanger, alertNull } from "../context/actions/alertActions";
 import { alertSuccess } from "../context/actions/alertActions";
 import { motion } from "framer-motion";
 import { buttonClick } from "../animations";
-import { addNewProduct } from "../api";
+import { addNewProduct, getAllProducts } from "../api";
+import { setAllProducts } from "../context/actions/productActions";
 
 const DBNewItem = () => {
 	const [itemName, setItemName] = useState("");
@@ -91,6 +92,10 @@ const DBNewItem = () => {
 			setItemName("");
 			setPrice("");
 			setCategory(null);
+		});
+
+		getAllProducts().then((res) => {
+			dispatch(setAllProducts(res));
 		});
 	};
 
