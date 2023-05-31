@@ -26,7 +26,7 @@ export const alertInfo = (message) => {
 	};
 };
 
-export const alertNull = (message) => {
+export const alertNull = () => {
 	return {
 		type: "ALERT_NULL",
 		alert: null,

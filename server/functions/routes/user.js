@@ -26,12 +26,10 @@ router.get("/jwtVerification", async (req, res) => {
 			.status(200)
 			.json({ success: true, data: decodedValue, msg: "Token is valid" });
 	} catch (err) {
-		return res
-			.status(500)
-			.send({
-				success: false,
-				msg: `Error in extracting the token : ${err}`,
-			});
+		return res.status(500).send({
+			success: false,
+			msg: `Error in extracting the token : ${err}`,
+		});
 	}
 });
 

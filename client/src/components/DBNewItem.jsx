@@ -14,6 +14,7 @@ import { alertDanger, alertNull } from "../context/actions/alertActions";
 import { alertSuccess } from "../context/actions/alertActions";
 import { motion } from "framer-motion";
 import { buttonClick } from "../animations";
+import { addNewProduct } from "../api";
 
 const DBNewItem = () => {
 	const [itemName, setItemName] = useState("");
@@ -21,7 +22,7 @@ const DBNewItem = () => {
 	const [category, setCategory] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [progress, setProgress] = useState(null);
-	const [imageURL, setImageURL] = useState(null);
+	const [imageDownloadURL, setImageDownloadURL] = useState(null);
 
 	const alert = useSelector((state) => state.alert);
 	const dispatch = useDispatch();
@@ -47,7 +48,7 @@ const DBNewItem = () => {
 			},
 			() => {
 				getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-					setImageURL(downloadURL);
+					setImageDownloadURL(downloadURL);
 					setIsLoading(false);
 					setProgress(null);
 					dispatch(alertSuccess("Image Uploaded Successfully!"));
@@ -61,9 +62,9 @@ const DBNewItem = () => {
 
 	const deleteImageFromFirebase = () => {
 		setIsLoading(true);
-		const deleteRef = ref(storage, imageURL);
+		const deleteRef = ref(storage, imageDownloadURL);
 		deleteObject(deleteRef).then(() => {
-			setImageURL(null);
+			setImageDownloadURL(null);
 			setIsLoading(false);
 			dispatch(alertSuccess("Image Deleted Successfully!"));
 			setTimeout(() => {
@@ -72,14 +73,25 @@ const DBNewItem = () => {
 		});
 	};
 
-	const submitData = () => {
+	const submitNewData = () => {
 		const data = {
 			product_name: itemName,
-			product_Category: category,
+			product_category: category,
 			product_price: price,
-			imageURL: imageURL,
+			imageURL: imageDownloadURL,
 		};
-		console.log(data);
+
+		addNewProduct(data).then((res) => {
+			console.log(res);
+			dispatch(alertSuccess("Product Added Successfully!"));
+			setTimeout(() => {
+				dispatch(alertNull());
+			}, 3000);
+			setImageDownloadURL(null);
+			setItemName("");
+			setPrice("");
+			setCategory(null);
+		});
 	};
 
 	return (
@@ -146,7 +158,7 @@ const DBNewItem = () => {
 						</div>
 					) : (
 						<>
-							{!imageURL ? (
+							{!imageDownloadURL ? (
 								<>
 									<label>
 										<div className=" flex flex-col items-center justify-center h-full w-full cursor-pointer">
@@ -173,7 +185,7 @@ const DBNewItem = () => {
 									<div className="relative w-full h-full overflow-hidden rounded-md">
 										<motion.img
 											whileHover={{ scale: 1.1 }}
-											src={imageURL}
+											src={imageDownloadURL}
 											className="w-full h-full object-cover"
 										/>
 										<motion.button
@@ -187,7 +199,7 @@ const DBNewItem = () => {
 											ease-in-out"
 											onClick={() =>
 												deleteImageFromFirebase(
-													imageURL
+													imageDownloadURL
 												)
 											}
 										>
@@ -201,7 +213,7 @@ const DBNewItem = () => {
 				</div>
 
 				<motion.button
-					onClick={submitData}
+					onClick={submitNewData}
 					{...buttonClick}
 					className="w-[20%] py-2 rounded-md bg-red-400 text-primary hover:bg-red-500 cursor-pointer"
 				>
