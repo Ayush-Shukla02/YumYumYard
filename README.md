@@ -1,8 +1,7 @@
-## YumYumYard
+# YumYumYard
 
-<hr />
 
-#### Issues:
+### Issues:
 - Dashboard:
   - Products state does not load
   - Users state does not load
