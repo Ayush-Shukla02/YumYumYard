@@ -15,6 +15,7 @@ const DBRightSection = () => {
 			<DBHeader />
 			<div className="flex flex-col flex-1 overflow-y-scroll scrollbar-none">
 				<Routes>
+					<Route path="/" element={<DBHome />} />
 					<Route path="/home" element={<DBHome />} />
 					<Route path="/orders" element={<DBOrders />} />
 					<Route path="/items" element={<DBItems />} />

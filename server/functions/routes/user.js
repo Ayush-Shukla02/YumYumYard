@@ -1,8 +1,7 @@
-/* eslint-disable object-curly-spacing */
-/* eslint-disable linebreak-style */
-/* eslint-disable new-cap */
 const router = require("express").Router();
 const admin = require("firebase-admin");
+
+let data = [];
 
 router.get("/", (req, res) => {
 	return res.send("Hello from user route!");
@@ -29,6 +28,40 @@ router.get("/jwtVerification", async (req, res) => {
 		return res.status(500).send({
 			success: false,
 			msg: `Error in extracting the token : ${err}`,
+		});
+	}
+});
+
+const listAllUsers = (nextPageToken) => {
+	admin
+		.auth()
+		.listUsers(1000, nextPageToken)
+		.then((listUsersResult) => {
+			listUsersResult.users.forEach((userRecord) => {
+				data.push(userRecord.toJSON());
+			});
+
+			if (listUsersResult.pageToken) {
+				listAllUsers(listUsersResult.pageToken);
+			}
+		})
+		.catch((error) => {
+			console.log("Error listing users:", error);
+		});
+};
+
+listAllUsers();
+
+router.get("/all", async (req, res) => {
+	listAllUsers();
+	try {
+		return res
+			.status(200)
+			.send({ success: true, data: data, dataCount: data.length });
+	} catch (error) {
+		return res.send({
+			success: false,
+			msg: `Error in listing users: ${error}`,
 		});
 	}
 });

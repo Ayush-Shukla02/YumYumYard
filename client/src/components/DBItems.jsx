@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { DataTable } from "../components";
 import { HiCurrencyRupee } from "../assets/icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +9,14 @@ import { alertNull, alertSuccess } from "../context/actions/alertActions";
 const DBItems = () => {
 	const products = useSelector((state) => state.products);
 	const dispatch = useDispatch();
+
+	// useEffect(() => {
+	// 	if (!products) {
+	// 		getAllProducts().then((data) => {
+	// 			dispatch(setAllProducts(data));
+	// 		});
+	// 	}
+	// }, []);
 
 	return (
 		<div className="flex items-center justify-self-center gap-4 pt-6 w-full">
