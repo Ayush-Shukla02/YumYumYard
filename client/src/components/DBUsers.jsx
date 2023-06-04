@@ -7,15 +7,15 @@ import { Avatar } from "../assets";
 
 const DBUsers = () => {
 	const allUsers = useSelector((state) => state.allUsers);
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
 
-	useEffect(() => {
-		if (!allUsers) {
-			getAllUsers().then((data) => {
-				dispatch(setAllUsersDetails(data));
-			});
-		}
-	}, []);
+	// useEffect(() => {
+	// 	if (!allUsers) {
+	// 		getAllUsers().then((data) => {
+	// 			dispatch(setAllUsersDetails(data));
+	// 		});
+	// 	}
+	// }, []);
 
 	return (
 		<div className="flex items-center justify-self-center gap-4 pt-6 w-full">

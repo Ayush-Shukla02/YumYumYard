@@ -1,7 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Delivery } from "../assets";
-import { buttonClick } from "../animations";
+import { Delivery, HeroBg } from "../assets";
+import { buttonClick, staggerFadeInOut } from "../animations";
+import { randomData } from "../utils/styles";
 
 const Home = () => {
 	return (
@@ -35,7 +36,41 @@ const Home = () => {
 					Order Now
 				</motion.button>
 			</div>
-			<div className="">2</div>
+
+			<div className="py-2 flex-1 flex items-center justify-end relative">
+				<img
+					className="absolute top-0 right-0 md:-right-12 w-full h-420 md:w-auto md:h-650"
+					src={HeroBg}
+				/>
+
+				<div className="w-full md:w-460 ml-0 flex flex-wrap items-center justify-center gap-4 gap-y-14">
+					{randomData &&
+						randomData.map((item, index) => (
+							<motion.div
+								key={index}
+								{...staggerFadeInOut(index)}
+								className="w-32 h-36 md:h-auto md:w-190 p-4 bg-lightOverlay backdrop-blur-md rounded-3xl flex flex-col items-center justify-center drop-shadow-lg"
+							>
+								<img
+									src={item.imageURL}
+									className="w-12 h-12 md:w-32 md:h-32 md:-mt-16 object-contain"
+								/>
+								<p className="text-sm lg:text-xl font-semibold text-textColor">
+									{item.product_name.slice(0, 14)}
+								</p>
+								<p className="text-[12px] text-center md:text-base text-lighttextGray font-semibold capitalize">
+									{item.product_category}
+								</p>
+								<p className="text-sm font-semibold text-headingColor">
+									<span className="text-xs text-red-600">
+										₹
+									</span>{" "}
+									{item.product_price}
+								</p>
+							</motion.div>
+						))}
+				</div>
+			</div>
 		</motion.div>
 	);
 };
