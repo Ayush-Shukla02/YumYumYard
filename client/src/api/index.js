@@ -86,3 +86,17 @@ export const getAllCartItems = async (user_id) => {
 		return null;
 	}
 };
+
+// Cart Increment, Decrement
+export const increaseItemQuantity = async (user_id, product_id, type) => {
+	try {
+		const res = await axios.post(
+			`${baseURL}/api/products/updateCart/${user_id}`,
+			null,
+			{ params: { productId: product_id, type: type } }
+		);
+		return res.data.data;
+	} catch (err) {
+		return null;
+	}
+};
