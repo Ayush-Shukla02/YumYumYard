@@ -5,16 +5,13 @@ export const baseURL = "http://localhost:5001/yumyumyard-eb507/us-central1/app";
 // Verify the user's JWT token
 export const validateUserJWTToken = async (token) => {
 	try {
-		const response = await axios.get(
-			`${baseURL}/api/users/jwtVerification`,
-			{
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			}
-		);
+		const res = await axios.get(`${baseURL}/api/users/jwtVerification`, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
 
-		return response.data;
+		return res.data.data;
 	} catch (err) {
 		return null;
 	}

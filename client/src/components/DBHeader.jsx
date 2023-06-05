@@ -37,8 +37,8 @@ const DBHeader = () => {
 		<div className="w-full flex items-center justify-between gap-3">
 			<p className="text-2xl text-headingColor">
 				Welcome to City
-				{user?.data.name && (
-					<span className="block text-base text-gray-500">{`Hello ${user?.data.name}!`}</span>
+				{user?.name && (
+					<span className="block text-base text-gray-500">{`Hello ${user?.name}!`}</span>
 				)}
 			</p>
 
@@ -64,9 +64,7 @@ const DBHeader = () => {
 					<div className="w-10 h-10 rounded-md shadow-md cursor-pointer overflow-hidden">
 						<motion.img
 							className="w-full h-full object-cover"
-							src={
-								user?.data.picture ? user?.data.picture : Avatar
-							}
+							src={user?.picture ? user?.picture : Avatar}
 							whileHover={{ scale: 1.15 }}
 							referrerPolicy="no-referrer"
 						/>
