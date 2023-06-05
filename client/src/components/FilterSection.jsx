@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Slider } from "../components";
+import { Slider, SliderCard } from "../components";
 import { useSelector } from "react-redux";
 import { staggerFadeInOut } from "../animations";
 import { IoFastFood } from "../assets/icons";
@@ -23,14 +23,23 @@ const FilterSection = () => {
 
 			<div className="w-full overflow-x-scroll pt-6 flex items-center justify-center gap-6 py-8">
 				{statuses &&
-					statuses.map((data, i) => {
+					statuses.map((data, i) => (
 						<FilterCard
 							data={data}
 							category={category}
 							setCategory={setCategory}
 							index={i}
-						/>;
-					})}
+						/>
+					))}
+			</div>
+
+			<div className="w-full flex items-center justify-evenly flex-wrap gap-4 mt-12 ">
+				{products &&
+					products
+						.filter((data) => data.product_category === category)
+						.map((data, i) => (
+							<SliderCard key={i} data={data} index={i} />
+						))}
 			</div>
 		</motion.div>
 	);
@@ -41,6 +50,7 @@ export const FilterCard = ({ data, index, category, setCategory }) => {
 		<motion.div
 			key={index}
 			{...staggerFadeInOut(index)}
+			onClick={() => setCategory(data.category)}
 			className={`group w-28 min-w-[128px] cursor-pointer rounded-md py-6 ${
 				category === data.category ? "bg-red-500" : "bg-primary"
 			} hover:bg-red-500 shadow-md flex flex-col items-center justify-center gap-4`}
@@ -58,6 +68,15 @@ export const FilterCard = ({ data, index, category, setCategory }) => {
 					} group-hover:text-red-500`}
 				/>
 			</div>
+			<p
+				className={`text-xl font-semibold ${
+					category === data.category
+						? "text-primary"
+						: "text-textColor"
+				} group-hover:text-primary`}
+			>
+				{data.title}
+			</p>
 		</motion.div>
 	);
 };

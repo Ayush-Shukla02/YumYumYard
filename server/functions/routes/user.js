@@ -50,7 +50,7 @@ const listAllUsers = (nextPageToken) => {
 		});
 };
 
-listAllUsers();
+// listAllUsers();
 
 router.get("/all", async (req, res) => {
 	listAllUsers();
