@@ -1,14 +1,11 @@
 # YumYumYard
 
 ## Issues:
-<<<<<<< HEAD
 
 -   Cart
 
     -   If item quantity is decreased to 0 then the cart become unresponsive.
         -   Try using use Effect when quantity becomes 0
-=======
->>>>>>> 3faaaa7c528ee1748999d65543fbe00aeabb3edd
 
 -   Dashboard:
 
