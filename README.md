@@ -5,7 +5,11 @@
 -   Cart
 
     -   If item quantity is decreased to 0 then the cart become unresponsive.
-        -   Try using use Effect when quantity becomes 0
+        -   Try using use Effect when quantity becomes
+
+-   Checkout
+
+    -   After successfull payment completion the cart is not cleared
 
 -   Dashboard:
 

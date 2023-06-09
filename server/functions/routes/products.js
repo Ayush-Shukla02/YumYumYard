@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const admin = require("firebase-admin");
+const express = require("express");
 
 const db = admin.firestore();
 db.settings({ ignoreUndefinedProperties: true });
@@ -190,6 +191,14 @@ router.post("/updateCart/:userId", async (req, res) => {
 });
 
 router.post("/create-checkout-session", async (req, res) => {
+	const customer = await stripe.customers.create({
+		metadata: {
+			user_id: req.body.data.user.user_id,
+			cart: JSON.stringify(req.body.data.cart),
+			total: req.body.data.total,
+		},
+	});
+
 	const line_items = req.body.data.cart.map((item) => {
 		return {
 			price_data: {
@@ -225,6 +234,7 @@ router.post("/create-checkout-session", async (req, res) => {
 		],
 		phone_number_collection: { enabled: true },
 		line_items,
+		customer: customer.id,
 		mode: "payment",
 		success_url: `${process.env.CLIENT_URL}/checkout-success/`,
 		cancel_url: `${process.env.CLIENT_URL}/`,
@@ -232,5 +242,114 @@ router.post("/create-checkout-session", async (req, res) => {
 
 	res.send({ url: session.url });
 });
+
+//  const endpointSecret = process.env.WEBHOOK_SECRET;
+
+let endpointSecret;
+
+router.post(
+	"/webhook",
+	express.raw({ type: "application/json" }),
+	(req, res) => {
+		const sig = req.headers["stripe-signature"];
+
+		let eventType;
+		let data;
+
+		if (endpointSecret) {
+			let event;
+
+			try {
+				event = stripe.webhooks.constructEvent(
+					req.body,
+					sig,
+					endpointSecret
+				);
+			} catch (err) {
+				res.status(400).send(`Webhook Error: ${err.message}`);
+				return;
+			}
+			data = event.data.object;
+			eventType = event.type;
+		} else {
+			data = req.body.data.object;
+			eventType = req.body.type;
+		}
+
+		// Handle the event
+		if (eventType === "checkout.session.completed") {
+			stripe.customers.retrieve(data.customer).then((customer) => {
+				// console.log("Customer details: ", customer);
+				// console.log("Data :", data);
+				createOrder(customer, data, res);
+			});
+		}
+
+		// Return a 200 response to acknowledge receipt of the event
+		res.send().end();
+	}
+);
+
+const createOrder = async (customer, intent, res) => {
+	console.log("inside create order");
+	// console.log("Customer", customer);
+	// console.log("Intent", intent);
+	// console.log("Res", res);
+
+	try {
+		const orderId = Date.now();
+
+		const data = {
+			intentId: intent.id,
+			orderId: orderId,
+			amount: intent.amount_total,
+			created: intent.created,
+			payment_method_types: intent.payment_method_types,
+			status: intent.payment_status,
+			customer: intent.customer_details,
+			shipping_details: intent.shipping_details,
+			userId: customer.metadata.user_id,
+			items: JSON.parse(customer.metadata.cart),
+			total: customer.metadata.total,
+			sts: "preparing",
+		};
+
+		// console.log("data", data);
+
+		await db.collection("orders").doc(`/${orderId}/`).set(data);
+
+		deleteCart(
+			customer.metadata.user_id,
+			JSON.parse(customer.metadata.cart)
+		);
+		// console.log("*******************");
+
+		return res.status(200).send({ success: true });
+	} catch (err) {
+		console.log(err);
+		return res.status(400).send({ success: false });
+	}
+};
+
+const deleteCart = async (userId, items) => {
+	// console.log("inside delete order");
+	// console.log("userId : ", userId);
+
+	items.map(async (data) => {
+		// console.log("*******inside***********");
+		// console.log("product id ", data.productId);ll
+		await db
+			.collection("cartItems")
+			.doc(`/${userId}/`)
+			.collection("items")
+			.doc(`/${data.productId}/`)
+			.delete()
+			.then(() =>
+				console.log(
+					"Delete success -----------------------------------xxxx-----------------"
+				)
+			);
+	});
+};
 
 module.exports = router;
