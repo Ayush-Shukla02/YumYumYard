@@ -4,6 +4,8 @@ const admin = require("firebase-admin");
 const db = admin.firestore();
 db.settings({ ignoreUndefinedProperties: true });
 
+const stripe = require("stripe")(process.env.STRIPE_KEY);
+
 router.post("/create", async (req, res) => {
 	try {
 		const id = Date.now();
@@ -185,6 +187,50 @@ router.post("/updateCart/:userId", async (req, res) => {
 	} catch (err) {
 		return res.send({ success: false, msg: `Error : ${err}` });
 	}
+});
+
+router.post("/create-checkout-session", async (req, res) => {
+	const line_items = req.body.data.cart.map((item) => {
+		return {
+			price_data: {
+				currency: "inr",
+				product_data: {
+					name: item.product_name,
+					images: [item.imageURL],
+					metadata: {
+						id: item.productId,
+					},
+				},
+				unit_amount: item.product_price * 100,
+			},
+			quantity: item.quantity,
+		};
+	});
+
+	const session = await stripe.checkout.sessions.create({
+		payment_method_types: ["card"],
+		shipping_address_collection: { allowed_countries: ["IN"] },
+		shipping_options: [
+			{
+				shipping_rate_data: {
+					type: "fixed_amount",
+					fixed_amount: { amount: 0, currency: "inr" },
+					display_name: "Free Shipping",
+					delivery_estimate: {
+						minimum: { unit: "day", value: 2 },
+						maximum: { unit: "day", value: 3 },
+					},
+				},
+			},
+		],
+		phone_number_collection: { enabled: true },
+		line_items,
+		mode: "payment",
+		success_url: `${process.env.CLIENT_URL}/checkout-success/`,
+		cancel_url: `${process.env.CLIENT_URL}/`,
+	});
+
+	res.send({ url: session.url });
 });
 
 module.exports = router;

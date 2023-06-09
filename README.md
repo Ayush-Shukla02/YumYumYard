@@ -26,3 +26,7 @@
 -   Add the menu page
 -   Add the About page
 -   Add the Services Page
+
+## While Deploying
+
+-   Stripe does not allow more than 500 characters in the metadata so URL shortener is required
