@@ -149,7 +149,9 @@ export const CartItemCard = ({ index, data }) => {
 				>
 					<p className="text-xl font-semibold text-primary">-</p>
 				</motion.div>
-				<p>{data.quantity}</p>
+				<p className="text-lg text-primary font-semibold">
+					{data?.quantity}
+				</p>
 				<motion.div
 					{...buttonClick}
 					onClick={() => incrementCart(data?.productId)}
