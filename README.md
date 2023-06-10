@@ -10,7 +10,7 @@
     -   It shows error in Material Table - `this.props is not a function`
         -   Check for conditional rendering
 
-### SOLVED ISSUES
+### Solved Issues
 
 -   Check the logged in user handler function as data of the user is present in `user.data` and not in `user`
 -   If item quantity is decreased to 0 then the cart become unresponsive unless another request is made in the cart.
