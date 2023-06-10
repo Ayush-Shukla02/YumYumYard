@@ -11,9 +11,9 @@
 
 ### SOLVED ISSUES
 
-    -   Check the logged in user handler function as data of the user is present in `user.data` and not in `user`
-    -   If item quantity is decreased to 0 then the cart become unresponsive unless another request is made in the cart.
-    -   After successfull payment completion the cart is not cleared
+-   Check the logged in user handler function as data of the user is present in `user.data` and not in `user`
+-   If item quantity is decreased to 0 then the cart become unresponsive unless another request is made in the cart.
+-   After successfull payment completion the cart is not cleared
 
 ## Features to Add:
 
