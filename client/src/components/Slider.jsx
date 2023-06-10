@@ -14,7 +14,6 @@ const Slider = () => {
 		setFruits(
 			products?.filter((data) => data.product_category === "fruits")
 		);
-		console.log(fruits);
 	}, [products]);
 
 	return (

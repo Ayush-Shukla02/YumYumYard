@@ -241,7 +241,7 @@ router.post("/create-checkout-session", async (req, res) => {
 		line_items,
 		customer: customer.id,
 		mode: "payment",
-		success_url: `${process.env.CLIENT_URL}/checkout-success/`,
+		success_url: `${process.env.CLIENT_URL}/checkout-success`,
 		cancel_url: `${process.env.CLIENT_URL}/`,
 	});
 
@@ -296,7 +296,7 @@ router.post(
 );
 
 const createOrder = async (customer, intent, res) => {
-	console.log("inside create order");
+	// console.log("inside create order");
 	// console.log("Customer", customer);
 	// console.log("Intent", intent);
 	// console.log("Res", res);
@@ -332,28 +332,23 @@ const createOrder = async (customer, intent, res) => {
 		return res.status(200).send({ success: true });
 	} catch (err) {
 		console.log(err);
-		return res.status(400).send({ success: false });
+		// return res.status(400).send({ success: false });
 	}
 };
 
 const deleteCart = async (userId, items) => {
-	// console.log("inside delete order");
-	// console.log("userId : ", userId);
+	// console.log(userId);
 
 	items.map(async (data) => {
-		// console.log("*******inside***********");
-		// console.log("product id ", data.productId);ll
+		console.log("inside map", data.productId);
+
 		await db
 			.collection("cartItems")
 			.doc(`/${userId}/`)
 			.collection("items")
 			.doc(`/${data.productId}/`)
 			.delete()
-			.then(() =>
-				console.log(
-					"Delete success -----------------------------------xxxx-----------------"
-				)
-			);
+			.then(() => console.log("success"));
 	});
 };
 
