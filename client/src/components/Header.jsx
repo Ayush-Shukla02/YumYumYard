@@ -118,12 +118,16 @@ const Header = () => {
 									}}
 									{...slideTop}
 								>
-									<Link
-										className=" hover:text-red-500 text-xl text-textColor"
-										to={"/dashboard/home"}
-									>
-										Dashboard
-									</Link>
+									{user?.user_id ===
+										process.env.REACT_APP_ADMIN_ID && (
+										<Link
+											className=" hover:text-red-500 text-xl text-textColor"
+											to={"/dashboard/home"}
+										>
+											Dashboard
+										</Link>
+									)}
+
 									<Link
 										className="hover:text-red-500 text-xl text-textColor"
 										to={"/profile"}
