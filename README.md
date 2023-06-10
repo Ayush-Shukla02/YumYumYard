@@ -2,11 +2,6 @@
 
 ## Issues:
 
--   Cart
-
-    -   If item quantity is decreased to 0 then the cart become unresponsive.
-        -   Try using use Effect when quantity becomes
-
 -   Checkout
 
     -   After successfull payment completion the cart is not cleared
@@ -18,8 +13,10 @@
     -   Check by doing console.log() the data
     -   It shows error in Material Table - `this.props is not a function`
 
--   Overall
-    -   (DONE) Check the logged in user handler function as data of the user is present in `user.data` and not in `user`
+### SOLVED ISSUES
+
+    -   Check the logged in user handler function as data of the user is present in `user.data` and not in `user`
+    -   If item quantity is decreased to 0 then the cart become unresponsive unless another request is made in the cart.
 
 ## Features to Add:
 

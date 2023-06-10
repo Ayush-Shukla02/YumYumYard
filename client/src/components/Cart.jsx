@@ -24,7 +24,7 @@ const Cart = () => {
 				setTotal(tot);
 			});
 		}
-	});
+	}, [cart]);
 
 	const handleCheckOut = () => {
 		const data = {

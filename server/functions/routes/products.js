@@ -169,7 +169,12 @@ router.post("/updateCart/:userId", async (req, res) => {
 						.doc(`/${userId}/`)
 						.collection("items")
 						.doc(`/${productId}/`)
-						.delete();
+						.delete()
+						.then((result) => {
+							return res
+								.status(200)
+								.send({ success: true, data: result });
+						});
 				} else {
 					const quantity = doc.data().quantity - 1;
 					const updatedItem = await db
