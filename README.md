@@ -8,6 +8,7 @@
     -   Users state does not load
     -   Check by doing console.log() the data
     -   It shows error in Material Table - `this.props is not a function`
+        -   Check for conditional rendering
 
 ### SOLVED ISSUES
 
@@ -17,13 +18,12 @@
 
 ## Features to Add:
 
--   Check if the user is admin user then display the dashboard option else do not display
-
-    -   This can be done by taking a state as `isAdmin` in the redux and checking it everytime dashboard is used.
-
--   Add the menu page
+-   [DONE] Check if the user is admin user then display the dashboard option else do not display
+-   Navigate to Menu when clicking the `Order Now` button on the home page
+-   Shift the products to the menu page
 -   Add the About page
 -   Add the Services Page
+-   Add the Profile Page
 
 ## While Deploying
 
