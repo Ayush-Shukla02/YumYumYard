@@ -296,7 +296,6 @@ router.post(
 );
 
 const createOrder = async (customer, intent, res) => {
-	// console.log("inside create order");
 	// console.log("Customer", customer);
 	// console.log("Intent", intent);
 	// console.log("Res", res);
@@ -327,12 +326,10 @@ const createOrder = async (customer, intent, res) => {
 			customer.metadata.user_id,
 			JSON.parse(customer.metadata.cart)
 		);
-		// console.log("*******************");
 
 		return res.status(200).send({ success: true });
 	} catch (err) {
 		console.log(err);
-		// return res.status(400).send({ success: false });
 	}
 };
 
@@ -340,7 +337,7 @@ const deleteCart = async (userId, items) => {
 	// console.log(userId);
 
 	items.map(async (data) => {
-		console.log("inside map", data.productId);
+		// console.log(data.productId);
 
 		await db
 			.collection("cartItems")
@@ -351,5 +348,40 @@ const deleteCart = async (userId, items) => {
 			.then(() => console.log("success"));
 	});
 };
+
+router.get("/orders", async (req, res) => {
+	(async () => {
+		try {
+			let query = db.collection("orders");
+			let response = [];
+			await query.get().then((querySnap) => {
+				let docs = querySnap.docs;
+				docs.map((doc) => {
+					response.push({ ...doc.data() });
+				});
+				return response;
+			});
+
+			return res.status(200).send({ success: true, data: response });
+		} catch (error) {
+			return res.send({ success: false, msg: `Error :${error}` });
+		}
+	})();
+});
+
+router.post("/updateOrder/:order_id", async (req, res) => {
+	const order_id = req.params.order_id;
+	const sts = req.query.sts;
+
+	try {
+		const updatedItem = await db
+			.collection("orders")
+			.doc(`/${order_id}/`)
+			.update({ sts });
+		return res.status(200).send({ success: true, data: updatedItem });
+	} catch (err) {
+		return res.send({ success: false, msg: `Error :${err}` });
+	}
+});
 
 module.exports = router;
