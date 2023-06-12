@@ -19,10 +19,9 @@
 ## Features to Add:
 
 -   [DONE] Check if the user is admin user then display the dashboard option else do not display
--   Navigate to Menu when clicking the `Order Now` button on the home page
--   Shift the products to the menu page
+-   [DONE] Navigate to Menu when clicking the `Order Now` button on the home page
+-   [DONE] Shift the products to the menu page
 -   Add the About page
--   Add the Services Page
 -   Add the Profile Page
 
 ## While Deploying
