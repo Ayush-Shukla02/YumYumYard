@@ -39,7 +39,7 @@ const Header = () => {
 				className="flex items-center justify-center gap-4"
 			>
 				<img src={Logo} alt="logo" className="w-12" />
-				<p className="font-semibold text-xl">City</p>
+				<p className="font-semibold text-xl">YumYumYard</p>
 			</NavLink>
 
 			<nav className="flex items-center justify-center gap-8">
@@ -60,14 +60,14 @@ const Header = () => {
 					>
 						Menu
 					</NavLink>
-					<NavLink
+					{/* <NavLink
 						className={({ isActive }) =>
 							isActive ? isActiveStyles : isNotActiveStyles
 						}
 						to={"/services"}
 					>
 						Services
-					</NavLink>
+					</NavLink> */}
 					<NavLink
 						className={({ isActive }) =>
 							isActive ? isActiveStyles : isNotActiveStyles

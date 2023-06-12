@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
-import { Cart, FilterSection, Header, Home, HomeSlider } from "../components";
+import { Cart, Header, FilterSection } from "../components";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts, getAllUsers } from "../api";
+import { getAllProducts } from "../api";
 import { setAllProducts } from "../context/actions/productActions";
-import { setAllUsersDetails } from "../context/actions/allUsersAction";
 
-const Main = () => {
+const Menu = () => {
 	const products = useSelector((state) => state.products);
-	const allUsers = useSelector((state) => state.allUsers);
 	const isCart = useSelector((state) => state.isCart);
 	const dispatch = useDispatch();
 
@@ -22,14 +20,12 @@ const Main = () => {
 	return (
 		<main className="w-screen min-h-screen flex items-center justify-start flex-col bg-primary">
 			<Header />
-			<div className="w-full flex flex-col items-start justify-center mt-40 px-6 md:px-24 2xl:px-96 gap-12 pb-24">
-				<Home />
-				{/* <HomeSlider />
-				<FilterSection /> */}
+			<div className="w-full flex flex-col items-center justify-center mt-40 px-6 md:px-24 2xl:px-96 gap-12 pb-24">
+				<FilterSection />
 			</div>
 			{isCart && <Cart />}
 		</main>
 	);
 };
 
-export default Main;
+export default Menu;

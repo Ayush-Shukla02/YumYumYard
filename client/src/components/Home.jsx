@@ -3,8 +3,10 @@ import { motion } from "framer-motion";
 import { Delivery, HeroBg } from "../assets";
 import { buttonClick, staggerFadeInOut } from "../animations";
 import { randomData } from "../utils/styles";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+	const navigate = useNavigate();
 	return (
 		<motion.div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
 			<div className="flex flex-col items-start justify-start gap-6">
@@ -32,6 +34,7 @@ const Home = () => {
 				<motion.button
 					{...buttonClick}
 					className="bg-gradient-to-bl from-orange-400 to-orange-600 px-4 py-2 rounded-xl text-black text-base font-semibold"
+					onClick={() => navigate("/menu", { replace: true })}
 				>
 					Order Now
 				</motion.button>
