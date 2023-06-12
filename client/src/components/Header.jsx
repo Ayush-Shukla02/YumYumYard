@@ -60,14 +60,6 @@ const Header = () => {
 					>
 						Menu
 					</NavLink>
-					{/* <NavLink
-						className={({ isActive }) =>
-							isActive ? isActiveStyles : isNotActiveStyles
-						}
-						to={"/services"}
-					>
-						Services
-					</NavLink> */}
 					<NavLink
 						className={({ isActive }) =>
 							isActive ? isActiveStyles : isNotActiveStyles
@@ -103,7 +95,7 @@ const Header = () => {
 							}}
 						>
 							<div className="w-12 h-12 rounded-full shadow-md overflow-hidden cursor-pointer flex items-center justify-center">
-								<motion.image
+								<motion.img
 									className="w-full h-full object-cover"
 									src={user?.picture ? user?.picture : Avatar}
 									whileHover={{ scale: 1.15 }}

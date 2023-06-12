@@ -7,15 +7,15 @@ import { Avatar } from "../assets";
 
 const DBUsers = () => {
 	const allUsers = useSelector((state) => state.allUsers);
-	// const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-	// useEffect(() => {
-	// 	if (!allUsers) {
-	// 		getAllUsers().then((data) => {
-	// 			dispatch(setAllUsersDetails(data));
-	// 		});
-	// 	}
-	// }, []);
+	useEffect(() => {
+		if (!allUsers) {
+			getAllUsers().then((data) => {
+				dispatch(setAllUsersDetails(data));
+			});
+		}
+	}, []);
 
 	return (
 		<div className="flex items-center justify-self-center gap-4 pt-6 w-full">
@@ -61,27 +61,6 @@ const DBUsers = () => {
 				]}
 				data={allUsers}
 				title="List of Users"
-				// actions={[
-				// 	{
-				// 		icon: "edit",
-				// 		tooltip: "Edit Data",
-				// 		onClick: (event, rowData) =>
-				// 			alert("You are editing " + rowData.product_name),
-				// 	},
-				// 	{
-				// 		icon: "delete",
-				// 		tooltip: "Delete Data",
-				// 		onClick: (event, rowData) => {
-				// 			if (
-				// 				window.confirm(
-				// 					"Are you sure you want to delete this item?"
-				// 				)
-				// 			) {
-				// 				console.log("yes");
-				// 			}
-				// 		},
-				// 	},
-				// ]}
 			/>
 		</div>
 	);

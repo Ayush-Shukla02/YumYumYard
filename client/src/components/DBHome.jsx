@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts, getAllUsers } from "../api";
 import { setAllProducts } from "../context/actions/productActions";
-// import { setAllUsersDetails } from "../context/actions/allUsersAction";
+import { setAllUsersDetails } from "../context/actions/allUsersAction";
 import { CChart } from "@coreui/react-chartjs";
 
 const DBHome = () => {
 	const products = useSelector((state) => state.products);
-	// const users = useSelector((state) => state.users);
+	const users = useSelector((state) => state.users);
 	const dispatch = useDispatch();
 
 	const drinks = products?.filter(
@@ -34,13 +34,13 @@ const DBHome = () => {
 		}
 	}, []);
 
-	// useEffect(() => {
-	// 	if (!users) {
-	// 		getAllUsers().then((data) => {
-	// 			dispatch(setAllUsersDetails(data));
-	// 		});
-	// 	}
-	// }, []);
+	useEffect(() => {
+		if (!users) {
+			getAllUsers().then((data) => {
+				dispatch(setAllUsersDetails(data));
+			});
+		}
+	}, []);
 
 	return (
 		<div className="flex items-center justify-center flex-col pt-6 w-full h-full">

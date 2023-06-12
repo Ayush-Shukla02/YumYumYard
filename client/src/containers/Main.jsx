@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { Cart, Header, Home } from "../components";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../api";
+import { getAllProducts, getAllUsers } from "../api";
 import { setAllProducts } from "../context/actions/productActions";
+import { setAllUsersDetails } from "../context/actions/allUsersAction";
 
 const Main = () => {
 	const products = useSelector((state) => state.products);
-	const allUsers = useSelector((state) => state.allUsers);
+	const users = useSelector((state) => state.users);
 	const isCart = useSelector((state) => state.isCart);
 	const dispatch = useDispatch();
 
@@ -14,6 +15,14 @@ const Main = () => {
 		if (!products) {
 			getAllProducts().then((data) => {
 				dispatch(setAllProducts(data));
+			});
+		}
+	}, []);
+
+	useEffect(() => {
+		if (!users) {
+			getAllUsers().then((data) => {
+				dispatch(setAllUsersDetails(data));
 			});
 		}
 	}, []);
