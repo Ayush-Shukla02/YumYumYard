@@ -100,7 +100,7 @@ const Cart = () => {
 					</>
 				) : (
 					<>
-						<h1 className="text-3xl text-primary font-bold">
+						<h1 className="flex items-center justify-center w-full text-3xl text-primary font-bold">
 							Empty Cart
 						</h1>
 					</>
