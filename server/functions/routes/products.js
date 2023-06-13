@@ -231,8 +231,8 @@ router.post("/create-checkout-session", async (req, res) => {
 					fixed_amount: { amount: 0, currency: "inr" },
 					display_name: "Free Shipping",
 					delivery_estimate: {
-						minimum: { unit: "hour", value: 0 },
-						maximum: { unit: "hour", value: 1 },
+						minimum: { unit: "hour", value: 1 },
+						maximum: { unit: "hour", value: 2 },
 					},
 				},
 			},
