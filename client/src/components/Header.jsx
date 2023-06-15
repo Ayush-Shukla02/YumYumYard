@@ -119,13 +119,6 @@ const Header = () => {
 											Dashboard
 										</Link>
 									)}
-
-									<Link
-										className="hover:text-red-500 text-xl text-textColor"
-										to={"/profile"}
-									>
-										My Profile
-									</Link>
 									<Link
 										className=" hover:text-red-500 text-xl text-textColor"
 										to={"/user-orders"}
