@@ -19,6 +19,7 @@ const DBUsers = () => {
 
 	return (
 		<div className="flex items-center justify-self-center gap-4 pt-6 w-full">
+			{/* Here render this DataTable only if allUsers is not null else display some other message */}
 			<DataTable
 				columns={[
 					{
