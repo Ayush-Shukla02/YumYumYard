@@ -1,5 +1,10 @@
 # YumYumYard
 
+### How to run?
+
+-   `yarn start` for the frontend
+-   `npm run serve` for the firebase functions
+
 ## Issues:
 
 -   Dashboard:
