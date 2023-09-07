@@ -1,35 +1,15 @@
 # YumYumYard
 
-### How to run?
+YumYumYard is a web app built using ReactJS and Firebase that allows the users to order food from the restaurant. It utilizes the Stripe API for payment processing and the Firebase Cloud Functions for backend.
 
--   `yarn start` for the frontend
--   `npm run serve` for the firebase functions
+## Features
 
-## Issues:
+-   **User Authenticaton**: Users can login via Google or create and account using their Email and Password. Firebase Authentication is used for authentication and authorization.
 
--   Dashboard:
+-   **Cart**: Users can view the menu of the restaurant and add items to their cart.
 
-    -   Products state does not load
-    -   Users state does not load
-    -   Check by doing console.log() the data
-    -   Same users are added to the `allUsers` state multiple times
-    -   It shows error in Material Table - `this.props is not a function`
-        -   Check for conditional rendering
+-   **Payment**: Users can pay for their order after checking-out from the cart. Payment is processed using the Stripe API. After successfull payment the cart is cleared using a webhook and the order is added to the database.
 
-### Solved Issues
+-   **Admin**: Admin users can view the dashboard of the app that displays the statistics of the products and orders and they can manage the products and users.
 
--   Check the logged in user handler function as data of the user is present in `user.data` and not in `user`
--   If item quantity is decreased to 0 then the cart become unresponsive unless another request is made in the cart.
--   After successfull payment completion the cart is not cleared
-
-## Features to Add:
-
--   [DONE] Check if the user is admin user then display the dashboard option else do not display
--   [DONE] Navigate to Menu when clicking the `Order Now` button on the home page
--   [DONE] Shift the products to the menu page
--   Add the About page
--   Add the Profile Page
-
-## While Deploying
-
--   Stripe does not allow more than 500 characters in the metadata so URL shortener is required
+-   **Orders**: Admins can view all the orders placed all the users can update their status from the dashboard itself. Non-admin users can view their orders and their status from the Orders page.
