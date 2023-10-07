@@ -89,22 +89,29 @@ const Login = () => {
 		} else {
 			setUserEmail("");
 			setPassword("");
-			await signInWithEmailAndPassword(
-				firebaseauth,
-				userEmail,
-				password
-			).then((userCred) => {
-				firebaseauth.onAuthStateChanged((cred) => {
-					if (cred) {
-						cred.getIdToken().then((token) => {
-							validateUserJWTToken(token).then((data) => {
-								dispatch(setUserDetails(data));
+			await signInWithEmailAndPassword(firebaseauth, userEmail, password)
+				.then((userCred) => {
+					firebaseauth.onAuthStateChanged((cred) => {
+						if (cred) {
+							cred.getIdToken().then((token) => {
+								validateUserJWTToken(token).then((data) => {
+									dispatch(setUserDetails(data));
+								});
+								navigate("/", { replace: true });
 							});
-							navigate("/", { replace: true });
-						});
+						}
+					});
+				})
+				.catch((error) => {
+					const errorCode = error.code;
+					const errorMessage = error.message;
+
+					if (errorCode === "auth/wrong-password") {
+						dispatch(alertWarning("Wrong Password"));
+					} else if (errorCode === "auth/user-not-found") {
+						dispatch(alertWarning("User not found"));
 					}
 				});
-			});
 		}
 	};
 
