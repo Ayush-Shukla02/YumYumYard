@@ -26,10 +26,10 @@ const Home = () => {
 					<span className="text-orange-600">Your City</span>
 				</p>
 				<p className="text-textColor text-lg">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. A,
-					voluptates qui molestiae, et numquam recusandae explicabo
-					ducimus pariatur ea consequuntur quasi tempora. Reiciendis
-					delectus laudantium rem aut eum perspiciatis nobis?
+					Welcome to YumYumYard, where we are passionate about
+					bringing you the best in culinary experiences. Our goal is
+					to make your online food ordering experience memorable and
+					hassle-free.
 				</p>
 				<motion.button
 					{...buttonClick}

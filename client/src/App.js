@@ -16,6 +16,7 @@ import {
 	UsersOrders,
 } from "./components";
 import { setCartItems } from "./context/actions/cartActions";
+import About from "./components/About";
 
 const App = () => {
 	const firebaseAuth = getAuth(app);
@@ -58,6 +59,7 @@ const App = () => {
 			<Routes>
 				<Route path="/*" element={<Main />} />
 				<Route path="/menu" element={<Menu />} />
+				<Route path="/about" element={<About />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/dashboard/*" element={<Dashboard />} />
 				<Route path="/checkout-success" element={<CheckOutSuccess />} />
