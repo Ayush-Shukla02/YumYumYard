@@ -41,18 +41,32 @@ const Login = () => {
 	}, [user]);
 
 	const loginWithGoogle = async () => {
-		await signInWithPopup(firebaseauth, provider).then((userCred) => {
-			firebaseauth.onAuthStateChanged((cred) => {
-				if (cred) {
-					cred.getIdToken().then((token) => {
-						validateUserJWTToken(token).then((data) => {
-							dispatch(setUserDetails(data));
+		await signInWithPopup(firebaseauth, provider)
+			.then((userCred) => {
+				firebaseauth.onAuthStateChanged((cred) => {
+					if (cred) {
+						cred.getIdToken().then((token) => {
+							validateUserJWTToken(token).then((data) => {
+								dispatch(setUserDetails(data));
+							});
+							navigate("/", { replace: true });
 						});
-						navigate("/", { replace: true });
-					});
+					}
+				});
+			})
+			.catch((error) => {
+				if (error.code === "auth/cancelled-popup-request") {
+					dispatch(
+						alertInfo("Popup request was cancelled by the user.")
+					);
+				} else if (error.code === "auth/popup-closed-by-user") {
+					dispatch(alertInfo("Popup was closed by the user."));
+				} else {
+					dispatch(
+						alertWarning("Authentication Error: ", error.message)
+					);
 				}
 			});
-		});
 	};
 
 	const signUpWithEmailPass = async () => {
