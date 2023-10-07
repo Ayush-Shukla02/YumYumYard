@@ -24,7 +24,7 @@ function About() {
 			<img
 				src={Logo}
 				alt="Background"
-				className="w-[90%] h-[90%] absolute opacity-10"
+				className="w-[60%] h-[90%] absolute opacity-10"
 			/>
 			<div className="w-full flex flex-col items-center justify-center mt-40 px-6 md:px-24 2xl:px-96 gap-12 pb-24">
 				<p className="text-2xl text-center font-sans">

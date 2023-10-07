@@ -11,7 +11,7 @@ const DBLeftSection = () => {
 				className="flex items-center justify-start px-6 gap-4"
 			>
 				<img src={Logo} alt="logo" className="w-12" />
-				<p className="font-semibold text-xl">City</p>
+				<p className="font-semibold text-xl">YumYumYard</p>
 			</NavLink>
 			<hr />
 			<ul className="flex flex-col gap-4">
