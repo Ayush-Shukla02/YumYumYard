@@ -17,7 +17,11 @@ import {
 import { app } from "../config/firebase.config";
 import { validateUserJWTToken } from "../api";
 import { setUserDetails } from "../context/actions/userActions";
-import { alertInfo, alertWarning } from "../context/actions/alertActions";
+import {
+	alertInfo,
+	alertNull,
+	alertWarning,
+} from "../context/actions/alertActions";
 
 const Login = () => {
 	const [userEmail, setUserEmail] = useState("");
@@ -59,12 +63,21 @@ const Login = () => {
 					dispatch(
 						alertInfo("Popup request was cancelled by the user.")
 					);
+					setInterval(() => {
+						dispatch(alertNull());
+					}, 3000);
 				} else if (error.code === "auth/popup-closed-by-user") {
 					dispatch(alertInfo("Popup was closed by the user."));
+					setInterval(() => {
+						dispatch(alertNull());
+					}, 3000);
 				} else {
 					dispatch(
 						alertWarning("Authentication Error: ", error.message)
 					);
+					setInterval(() => {
+						dispatch(alertNull());
+					}, 3000);
 				}
 			});
 	};
@@ -72,8 +85,14 @@ const Login = () => {
 	const signUpWithEmailPass = async () => {
 		if (userEmail === "" || password === "" || confirmPassword === "") {
 			dispatch(alertInfo("Required fields should not be empty."));
+			setInterval(() => {
+				dispatch(alertNull());
+			}, 3000);
 		} else if (password !== confirmPassword) {
 			dispatch(alertWarning("Passwords do not match."));
+			setInterval(() => {
+				dispatch(alertNull());
+			}, 3000);
 		} else {
 			setUserEmail("");
 			setPassword("");
